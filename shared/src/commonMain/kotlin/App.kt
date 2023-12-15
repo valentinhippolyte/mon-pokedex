@@ -27,11 +27,18 @@ import org.jetbrains.compose.resources.painterResource
 import screens.MyPokemonScreen
 import screens.PokemonListScreen
 import screens.PokemonScreen
-
+private val repository = PokemonRepository()
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
     MaterialTheme {
+        // Fetch data Api
+        val allPokemon = repository
+
+        //if(allPokemon.v) {
+            //questionScreen(questions.)
+        //}
+
         // BottomNavBar :
         var selectedTabIndex by remember { mutableStateOf(0) }
         val tabs = listOf(
