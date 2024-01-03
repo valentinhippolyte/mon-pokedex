@@ -9,9 +9,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import dataClass.Pokedex
 
 @Composable
-fun PokemonListScreen() {
+fun PokemonListScreen(pokedex: Pokedex) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -30,6 +31,20 @@ fun PokemonListScreen() {
                     .padding(8.dp)
                     .wrapContentSize()
             )
+
+
+                pokedex.pokemons.forEachIndexed { _, pokemon ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    Text(
+                        text = pokemon.name,
+                        style = MaterialTheme.typography.body1,
+                    )
+                }
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 package network
 
-import AllPokemon
+import dataClass.Pokedex
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -13,14 +13,14 @@ class PokemonAPI {
     private val httpClient = HttpClient {
         install(ContentNegotiation) {
             json(
-                contentType = ContentType.Text.Plain, // because Github is not returning an 'application/json' header
+                contentType = ContentType.Application.Json,
                 json = Json {
                     ignoreUnknownKeys = true
                     useAlternativeNames = false
                 })
         }
     }
-    suspend fun getAllPokemon(): AllPokemon {
-        return httpClient.get("https://awl.li/devoxxkmm2023").body()
+    suspend fun getAllPokemons(): Pokedex {
+        return httpClient.get("https://pokebuildapi.fr/api/v1/pokemon").body()
     }
 }
