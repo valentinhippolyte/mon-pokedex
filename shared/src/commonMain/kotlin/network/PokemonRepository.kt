@@ -1,3 +1,5 @@
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import dataClass.Pokemon
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -11,39 +13,47 @@ class PokemonRepository()  {
     private val pokemonAPI = PokemonAPI()
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
-    private var _pokemonState=  MutableStateFlow(listOf<Pokemon>())
+    private var _pokemonListState = MutableStateFlow(listOf<Pokemon>())
+    var pokemonListState = _pokemonListState
+
+    private var _pokemonState = MutableStateFlow<Pokemon?>(null)
     var pokemonState = _pokemonState
 
     init {
-        updatePokemon()
+        updatePokemonList()
+        updateSinglePokemon()
     }
 
-    private suspend fun fetchPokemon(): List<Pokemon> = pokemonAPI.getAllPokemons().pokemons
+    private suspend fun fetchPokemonList(): List<Pokemon> = pokemonAPI.getAllPokemons().pokemons
 
-    private fun updatePokemon(){
+    private fun updatePokemonList(){
         coroutineScope.launch {
-            _pokemonState.update { fetchPokemon() }
+            _pokemonListState.update { fetchPokemonList() }
         }
     }
-}
-//class QuizRepository()  {
+
+    private suspend fun fetchOnePokemon(): Pokemon = pokemonAPI.getPokemonById()
+
+    private fun updateSinglePokemon(){
+        coroutineScope.launch {
+            _pokemonState.update { fetchOnePokemon() }
+        }
+    }
+
+
+//    private suspend fun fetchPokemonList(): List<Pokemon> = pokemonAPI.getAllPokemons().pokemons
 //
-//    private val quizAPI = QuizAPI()
-//    private val coroutineScope = CoroutineScope(Dispatchers.Default)
+//    private suspend fun fetchSinglePokemon(): Pokemon = pokemonAPI.getPokemonById()
 //
-//    private var _questionState=  MutableStateFlow(listOf<Question>())
-//    var questionState = _questionState
-//
-//    init {
-//        updateQuiz()
-//    }
-//
-//    private suspend fun fetchQuiz(): List<Question> = quizAPI.getAllQuestions().questions
-//
-//    private fun updateQuiz(){
-//
+//    private fun updatePokemonList() {
 //        coroutineScope.launch {
-//            _questionState.update { fetchQuiz() }
+//            _pokemonListState.update { fetchPokemonList() }
 //        }
 //    }
-//}
+//
+//    private fun updateSinglePokemon() {
+//        coroutineScope.launch {
+//            _singlePokemonState.update { fetchSinglePokemon() }
+//        }
+//    }
+}

@@ -1,7 +1,5 @@
 package dataClass
 
-import dataClass.Type
-import kotlinx.serialization.SerialInfo
 import kotlinx.serialization.SerialName
 
 @kotlinx.serialization.Serializable

@@ -28,17 +28,19 @@ private val repository = PokemonRepository()
 fun App() {
     MaterialTheme {
         //appel api
-        val pokemons = repository.pokemonState.collectAsState()
+        val pokemons = repository.pokemonListState.collectAsState()
+        val pokemon = repository.pokemonState.collectAsState()
+
 
         // BottomNavBar :
-        var selectedTabIndex by remember { mutableStateOf(0) }
+        var selectedTabIndex by remember { mutableStateOf(1) }
         val tabs = listOf(
             "Pokemons" to Icons.Default.Star,
             "Capture" to Icons.Default.Favorite,
         )
         val selectedScreen = when (selectedTabIndex) {
             0 -> PokemonListScreen(Pokedex(pokemons.value))
-            1 -> MyPokemonScreen()
+            1 -> MyPokemonScreen(pokemon.value)
             else -> throw IllegalArgumentException("Unknown tab index: $selectedTabIndex")
         }
 

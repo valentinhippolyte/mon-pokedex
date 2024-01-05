@@ -1,6 +1,7 @@
 package network
 
 import dataClass.Pokedex
+import dataClass.Pokemon
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -22,5 +23,8 @@ class PokemonAPI {
     }
     suspend fun getAllPokemons(): Pokedex {
         return httpClient.get("https://pokebuildapi.fr/api/v1/pokemon").body()
+    }
+    suspend fun getPokemonById(): Pokemon {
+        return httpClient.get("https://pokebuildapi.fr/api/v1/pokemon/" + 1).body()
     }
 }

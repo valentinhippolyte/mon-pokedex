@@ -9,9 +9,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import dataClass.Pokemon
 
 @Composable
-fun MyPokemonScreen() {
+fun MyPokemonScreen(pokemon: Pokemon?) {
+    var pokemonName = ""
+    if (pokemon != null) {
+        pokemonName = pokemon.name
+    }
+    else{
+        pokemonName = "toto"
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -24,7 +33,7 @@ fun MyPokemonScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Pokemon capture",
+                text = pokemonName,
                 style = MaterialTheme.typography.h4,
                 modifier = Modifier
                     .padding(8.dp)
