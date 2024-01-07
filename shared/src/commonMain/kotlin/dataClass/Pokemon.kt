@@ -1,11 +1,11 @@
 package dataClass
 
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 
 @kotlinx.serialization.Serializable
 data class Pokemon(
-    @SerialName("pokedexId") val pokedexId:Int,
-    @SerialName("name") val name:String,
-    @SerialName("image") val image:String,
-//    val types:List<Type>,
+    val id: Int,
+    val name: String,
+    val image: String,
 )

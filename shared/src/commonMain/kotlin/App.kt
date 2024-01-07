@@ -20,6 +20,7 @@ import dataClass.Pokedex
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import screens.MyPokemonScreen
 import screens.PokemonListScreen
+import screens.PokemonScreen
 
 private val repository = PokemonRepository()
 
@@ -37,10 +38,12 @@ fun App() {
         val tabs = listOf(
             "Pokemons" to Icons.Default.Star,
             "Capture" to Icons.Default.Favorite,
+            "OnePokemon" to Icons.Default.Favorite,
         )
         val selectedScreen = when (selectedTabIndex) {
             0 -> PokemonListScreen(Pokedex(pokemons.value))
             1 -> MyPokemonScreen(pokemon.value)
+            2 -> PokemonScreen()
             else -> throw IllegalArgumentException("Unknown tab index: $selectedTabIndex")
         }
 

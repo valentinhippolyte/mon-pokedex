@@ -7,6 +7,7 @@ import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.http.ContentType
+import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -17,11 +18,11 @@ class PokemonAPI {
                 contentType = ContentType.Application.Json,
                 json = Json {
                     ignoreUnknownKeys = true
-                    useAlternativeNames = false
+                    useAlternativeNames = true
                 })
         }
     }
-    suspend fun getAllPokemons(): Pokedex {
+    suspend fun getAllPokemons(): List<Pokemon>{
         return httpClient.get("https://pokebuildapi.fr/api/v1/pokemon").body()
     }
     suspend fun getPokemonById(): Pokemon {

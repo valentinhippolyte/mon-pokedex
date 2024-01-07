@@ -24,7 +24,7 @@ class PokemonRepository()  {
         updateSinglePokemon()
     }
 
-    private suspend fun fetchPokemonList(): List<Pokemon> = pokemonAPI.getAllPokemons().pokemons
+    private suspend fun fetchPokemonList(): List<Pokemon> = pokemonAPI.getAllPokemons()
 
     private fun updatePokemonList(){
         coroutineScope.launch {
