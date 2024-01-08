@@ -14,12 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import moe.tlaster.precompose.navigation.Navigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun PokemonScreen() {
+fun PokemonScreen(navigator: Navigator, id: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,7 +49,7 @@ fun PokemonScreen() {
 //                )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "toto",
+                    text = id +": Toto",
                     style = MaterialTheme.typography.h6
                 )
             }

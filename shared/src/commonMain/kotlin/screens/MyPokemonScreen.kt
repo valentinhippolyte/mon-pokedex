@@ -10,9 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dataClass.Pokemon
+import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
-fun MyPokemonScreen(pokemon: Pokemon?) {
+fun MyPokemonScreen(navigator: Navigator, pokemon: Pokemon?) {
     var pokemonName = ""
     if (pokemon != null) {
         pokemonName = pokemon.name

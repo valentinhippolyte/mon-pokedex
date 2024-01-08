@@ -8,11 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.material.Button
 import androidx.compose.ui.unit.dp
-import dataClass.Pokedex
+import dataClass.Pokemon
+import moe.tlaster.precompose.navigation.Navigator
 
 @Composable
-fun PokemonListScreen(pokedex: Pokedex) {
+fun PokemonListScreen(navigator: Navigator, pokedex: List<Pokemon>) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -31,9 +33,13 @@ fun PokemonListScreen(pokedex: Pokedex) {
                     .padding(8.dp)
                     .wrapContentSize()
             )
-
-
-                pokedex.pokemons.forEachIndexed { _, pokemon ->
+            Button(
+                modifier = Modifier.padding(all = 10.dp),
+                onClick = { navigator.navigate(route = "/myPokemon") }
+            ) {
+                Text("My pokemon screen")
+            }
+                pokedex.forEachIndexed { _, pokemon ->
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -45,6 +51,7 @@ fun PokemonListScreen(pokedex: Pokedex) {
                     )
                 }
             }
+
         }
     }
 }

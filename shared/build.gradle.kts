@@ -33,6 +33,7 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.4") // make your dataclasses serializable
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                api("moe.tlaster:precompose:1.5.7")
             }
         }
         val androidMain by getting {
