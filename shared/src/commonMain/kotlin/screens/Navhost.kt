@@ -42,7 +42,7 @@ internal fun rootNavHost() {
             route = "/pokemon/{id}",
             navTransition = NavTransition(),
         ) { backStackEntry ->
-            backStackEntry.path<String>("id")?.let { id ->
+            backStackEntry.path<Int>("id")?.let { id ->
                 PokemonScreen(navigator, id)
             }
         }

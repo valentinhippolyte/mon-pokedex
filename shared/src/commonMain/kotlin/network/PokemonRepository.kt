@@ -21,7 +21,6 @@ class PokemonRepository()  {
 
     init {
         updatePokemonList()
-        updateSinglePokemon()
     }
 
     private suspend fun fetchPokemonList(): List<Pokemon> = pokemonAPI.getAllPokemons()
@@ -32,28 +31,11 @@ class PokemonRepository()  {
         }
     }
 
-    private suspend fun fetchOnePokemon(): Pokemon = pokemonAPI.getPokemonById()
+    private suspend fun fetchOnePokemon(id: Int): Pokemon = pokemonAPI.getPokemonById(id)
 
-    private fun updateSinglePokemon(){
+    fun updateSinglePokemon(id: Int){
         coroutineScope.launch {
-            _pokemonState.update { fetchOnePokemon() }
+            _pokemonState.update { fetchOnePokemon(id) }
         }
     }
-
-
-//    private suspend fun fetchPokemonList(): List<Pokemon> = pokemonAPI.getAllPokemons().pokemons
-//
-//    private suspend fun fetchSinglePokemon(): Pokemon = pokemonAPI.getPokemonById()
-//
-//    private fun updatePokemonList() {
-//        coroutineScope.launch {
-//            _pokemonListState.update { fetchPokemonList() }
-//        }
-//    }
-//
-//    private fun updateSinglePokemon() {
-//        coroutineScope.launch {
-//            _singlePokemonState.update { fetchSinglePokemon() }
-//        }
-//    }
 }

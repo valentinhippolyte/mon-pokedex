@@ -41,12 +41,10 @@ fun App() {
         val tabs = listOf(
             "Pokemons" to Icons.Default.Star,
             "Capture" to Icons.Default.Favorite,
-            "OnePokemon" to Icons.Default.Favorite,
         )
         val selectedScreen = when (selectedTabIndex) {
             0 -> { navigator.navigate(route = "/welcome") }
             1 -> { navigator.navigate(route = "/myPokemon") }
-            2 -> { navigator.navigate(route = "/pokemon/3") }
             else -> throw IllegalArgumentException("Unknown tab index: $selectedTabIndex")
         }
 

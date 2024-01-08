@@ -1,5 +1,7 @@
 package screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -8,10 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.material.Button
 import androidx.compose.ui.unit.dp
 import dataClass.Pokemon
 import moe.tlaster.precompose.navigation.Navigator
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
 
 @Composable
 fun PokemonListScreen(navigator: Navigator, pokedex: List<Pokemon>) {
@@ -22,28 +25,25 @@ fun PokemonListScreen(navigator: Navigator, pokedex: List<Pokemon>) {
         color = Color.White
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
         ) {
             Text(
-                text = "All the Pokemon",
+                text = "Pokedex",
                 style = MaterialTheme.typography.h4,
                 modifier = Modifier
                     .padding(8.dp)
                     .wrapContentSize()
             )
-            Button(
-                modifier = Modifier.padding(all = 10.dp),
-                onClick = { navigator.navigate(route = "/myPokemon") }
-            ) {
-                Text("My pokemon screen")
-            }
-                pokedex.forEachIndexed { _, pokemon ->
-                Row(
+
+            pokedex.forEachIndexed { _, pokemon ->
+                Box(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
+                        .fillMaxSize()
+                        .background(Color.Blue)
+                        .clickable { navigator.navigate(route = "/pokemon/"+ pokemon.id) }
+                    ,
                 ) {
                     Text(
                         text = pokemon.name,
@@ -51,7 +51,6 @@ fun PokemonListScreen(navigator: Navigator, pokedex: List<Pokemon>) {
                     )
                 }
             }
-
         }
     }
 }
