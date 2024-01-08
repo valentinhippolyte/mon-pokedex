@@ -17,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import dataClass.Pokedex
+import moe.tlaster.precompose.navigation.Navigator
+import moe.tlaster.precompose.navigation.rememberNavigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import screens.MyPokemonScreen
 import screens.PokemonListScreen
@@ -27,6 +29,7 @@ private val repository = PokemonRepository()
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
+    val navigator = rememberNavigator()
     MaterialTheme {
         //appel api
         val pokemons = repository.pokemonListState.collectAsState()
@@ -34,44 +37,43 @@ fun App() {
 
         rootNavHost()
 //        // BottomNavBar :
-//        var selectedTabIndex by remember { mutableStateOf(1) }
-//        val tabs = listOf(
-//            "Pokemons" to Icons.Default.Star,
-//            "Capture" to Icons.Default.Favorite,
-//            "OnePokemon" to Icons.Default.Favorite,
-//        )
-//        val selectedScreen = when (selectedTabIndex) {
-//            0 -> PokemonListScreen(navigator, Pokedex(pokemons.value))
-//            1 -> MyPokemonScreen(navigator, pokemon.value)
-//            2 -> PokemonScreen(navigator)
-//            else -> throw IllegalArgumentException("Unknown tab index: $selectedTabIndex")
-//        }
-//
-//        Column {
-//            // screen content :
-//            Box(
-//                modifier = Modifier
-//                    .weight(1f)
-//                    .fillMaxSize()
-//            ) {
-//                selectedScreen
-//            }
-//
-//            BottomNavigation(
-//            ) {
-//                tabs.forEachIndexed { index, (title, icon) ->
-//                    BottomNavigationItem(
-//                        icon = { Icon(icon, contentDescription = null) },
-//                        label = { Text(text = title) },
-//                        selected = selectedTabIndex == index,
-//                        onClick = {
-//                            selectedTabIndex = index
-//                        }
-//                    )
-//                }
-//
-//            }
-//        }
+        var selectedTabIndex by remember { mutableStateOf(1) }
+        val tabs = listOf(
+            "Pokemons" to Icons.Default.Star,
+            "Capture" to Icons.Default.Favorite,
+            "OnePokemon" to Icons.Default.Favorite,
+        )
+        val selectedScreen = when (selectedTabIndex) {
+            0 -> { navigator.navigate(route = "/welcome") }
+            1 -> { navigator.navigate(route = "/myPokemon") }
+            2 -> { navigator.navigate(route = "/pokemon/3") }
+            else -> throw IllegalArgumentException("Unknown tab index: $selectedTabIndex")
+        }
+
+        Column {
+            // screen content :
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxSize()
+            ) {
+                selectedScreen
+            }
+
+            BottomNavigation(
+            ) {
+                tabs.forEachIndexed { index, (title, icon) ->
+                    BottomNavigationItem(
+                        icon = { Icon(icon, contentDescription = null) },
+                        label = { Text(text = title) },
+                        selected = selectedTabIndex == index,
+                        onClick = {
+                            selectedTabIndex = index
+                        }
+                    )
+                }
+            }
+        }
     }
 }
 expect fun getPlatformName(): String
