@@ -16,13 +16,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import dataClass.Pokedex
-import moe.tlaster.precompose.navigation.Navigator
 import moe.tlaster.precompose.navigation.rememberNavigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import screens.MyPokemonScreen
-import screens.PokemonListScreen
-import screens.PokemonScreen
+
 
 private val repository = PokemonRepository()
 
