@@ -16,6 +16,9 @@ class PokemonRepository()  {
     private var _pokemonListState = MutableStateFlow(listOf<Pokemon>())
     var pokemonListState = _pokemonListState
 
+    private var _pokemonByGenState = MutableStateFlow(listOf<Pokemon>())
+    var pokemonByGenState = _pokemonListState
+
     private var _pokemonState = MutableStateFlow<Pokemon?>(null)
     var pokemonState = _pokemonState
 
@@ -28,6 +31,13 @@ class PokemonRepository()  {
     private fun updatePokemonList(){
         coroutineScope.launch {
             _pokemonListState.update { fetchPokemonList() }
+        }
+    }
+    private suspend fun fetchPokemonByGen(gen: Int): List<Pokemon> = pokemonAPI.getPokemonsByGen(gen)
+
+    private fun updatePokemonByGen(gen: Int){
+        coroutineScope.launch {
+            _pokemonByGenState.update { fetchPokemonByGen(gen) }
         }
     }
 
