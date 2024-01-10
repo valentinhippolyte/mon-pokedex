@@ -28,6 +28,7 @@ class PokemonAPI {
     suspend fun getPokemonsByGen(gen: Int): List<Pokemon>{
         return httpClient.get("https://pokebuildapi.fr/api/v1/pokemon/generation/$gen").body()
     }
+
     suspend fun getPokemonById(id: Int): Pokemon {
         return httpClient.get("https://pokebuildapi.fr/api/v1/pokemon/$id").body()
     }
