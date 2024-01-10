@@ -23,11 +23,7 @@ internal fun rootNavHost() {
             route = "/welcome",
             navTransition = NavTransition(),
         ) {
-            val pokemons = repository.pokemonListState.collectAsState()
-
-            if (pokemons.value.isNotEmpty()) {
-                PokemonListScreen(navigator, pokemons.value)
-            }
+                PokemonListScreen(navigator)
         }
         scene(
             route = "/myPokemon",
