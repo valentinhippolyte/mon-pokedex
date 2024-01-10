@@ -34,6 +34,8 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 api("moe.tlaster:precompose:1.5.7")
+                api("io.github.qdsfdhvh:image-loader:1.7.1")
+                api("io.github.qdsfdhvh:image-loader-extension-moko-resources:1.7.1")
             }
         }
         val androidMain by getting {

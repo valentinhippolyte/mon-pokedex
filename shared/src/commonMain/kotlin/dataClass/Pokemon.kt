@@ -1,11 +1,13 @@
 package dataClass
 
+import kotlinx.serialization.SerialName
 
+@kotlinx.serialization.Serializable
 data class Pokemon(
     val id: Int,
     val name: String,
     val image: String,
-    val apiGeneration: Int,
+    @SerialName("apiGeneration") val generation: Int,
     val stats: Stats,
-    val types: List<Type>,
+    @SerialName("apiTypes") val types: List<Type>,
 )

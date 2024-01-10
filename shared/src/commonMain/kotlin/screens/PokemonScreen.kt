@@ -1,34 +1,32 @@
 package screens
 
 import PokemonRepository
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import dataClass.Pokemon
-import io.ktor.util.reflect.instanceOf
-import kotlinx.coroutines.delay
+import com.seiko.imageloader.rememberImagePainter
 import moe.tlaster.precompose.navigation.Navigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import kotlin.coroutines.coroutineContext
-import kotlin.native.concurrent.ThreadLocal
 
 private val repository = PokemonRepository()
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun PokemonScreen(navigator: Navigator, id: Int) {
-//    repository.updateSinglePokemon(id)
-
     val pokemon = repository.pokemonState.collectAsState().value
 
     LaunchedEffect(id) {
@@ -42,20 +40,46 @@ fun PokemonScreen(navigator: Navigator, id: Int) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Button(
-            onClick =  { navigator.navigate(route = "/welcome") },
-        ) {
-            Text(
-                text = "retour",
-                style = MaterialTheme.typography.h6
-            )
+
+        /*
+        var types = ""
+        pokemon.types.forEachIndexed { _, type ->
+            types += type.name + " "
         }
+        */
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
             elevation = 8.dp
         ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back",
+                    modifier = Modifier
+                        .clickable { navigator.navigate(route = "/welcome") }
+                        .padding(8.dp)
+                        .size(24.dp),
+                )
+
+                Icon(
+                    imageVector = Icons.Default.FavoriteBorder,
+                    contentDescription = "Favorite",
+                    modifier = Modifier
+                        .clickable {
+                            // TODO : fonction ajouter aux favoris (et possiblement un changement d'icone si il est dans les favoris)
+                        }
+                        .padding(8.dp)
+                        .size(24.dp),
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -63,17 +87,33 @@ fun PokemonScreen(navigator: Navigator, id: Int) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-//                AsyncImage(
-//                    model = "https://delasign.com/delasignBlack.png",
-//                    placeholder = painterResource(id = R.drawable.sudoimage),
-//                    error = painterResource(id = R.drawable.sudoimage),
-//                    contentDescription = "The delasign logo",
-//                )
-                Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = pokemon?.id.toString() + " " + pokemon?.name,
+                    text = pokemon?.id.toString() + " " + pokemon?.name + " (generation :" + pokemon?.generation + ")",
                     style = MaterialTheme.typography.h6
                 )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Column(
+                        modifier = Modifier
+                            .width(100.dp)
+                            .height(100.dp)
+                    ) {
+                        if (pokemon != null) {
+                            Image(
+                                painter = rememberImagePainter(url = pokemon.image),
+                                contentDescription = "Pokemon Image",
+                                modifier = Modifier.fillMaxWidth(),
+                                contentScale = ContentScale.Fit
+                            )
+                        }
+                    }
+
+                    // Stats
+
+
+                }
             }
         }
     }

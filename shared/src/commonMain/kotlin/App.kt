@@ -33,7 +33,7 @@ fun App() {
 
         rootNavHost()
 //        // BottomNavBar :
-        var selectedTabIndex by remember { mutableStateOf(1) }
+        var selectedTabIndex by remember { mutableStateOf(0) }
         val tabs = listOf(
             "Pokemons" to Icons.Default.Star,
             "Capture" to Icons.Default.Favorite,

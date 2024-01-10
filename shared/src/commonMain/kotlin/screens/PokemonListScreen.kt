@@ -1,10 +1,18 @@
 package screens
 
-import DefaultTextFieldPreview
-import DropDownMenu
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -15,16 +23,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import dataClass.Pokemon
 import moe.tlaster.precompose.navigation.Navigator
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 
 @Composable
 fun PokemonListScreen(navigator: Navigator, pokedex: List<Pokemon>) {
-    var selectedGeneration by remember { mutableStateOf(1) }
+    //var selectedGeneration by remember { mutableStateOf(1) }
 
     Surface(
         modifier = Modifier
@@ -32,19 +34,23 @@ fun PokemonListScreen(navigator: Navigator, pokedex: List<Pokemon>) {
             .padding(16.dp),
         color = Color.White
     ) {
+        //Screen
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
         ) {
+            //Screen Title
             Text(
-                text = "Pokedex",
+                text = "MyPokedex",
                 style = MaterialTheme.typography.h4,
                 modifier = Modifier
                     .padding(8.dp)
                     .wrapContentSize()
+                    .align(alignment = Alignment.CenterHorizontally)
             )
-            Row(
+
+            /*Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
@@ -61,20 +67,37 @@ fun PokemonListScreen(navigator: Navigator, pokedex: List<Pokemon>) {
             }
 
             DefaultTextFieldPreview()
-
+*/
+            //Pokemon List
             pokedex.forEachIndexed { _, pokemon ->
-                Box(
+                //Pokemon Card
+                Card(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Color.Blue)
-                        .clickable { navigator.navigate(route = "/pokemon/"+ pokemon.id) }
-                    ,
+                        .clickable { navigator.navigate(route = "/pokemon/" + pokemon.id) }
+                        .background(
+                            color = Color.Transparent,
+                            shape = MaterialTheme.shapes.medium
+                        )
+                        .padding(5.dp),
                 ) {
-                    Text(
-                        text = pokemon.name + " gen " + pokemon.apiGeneration.toString(),
-                        style = MaterialTheme.typography.body1,
-                    )
+                    //Content
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(2.dp)
+                    ) {
+                        Text(
+                            text = pokemon.id.toString() + " " + pokemon.name,
+                            style = MaterialTheme.typography.body1,
+                        )
+                    }
                 }
+
+                Spacer(
+                    modifier = Modifier
+                        .height(5.dp)
+                )
             }
         }
     }
