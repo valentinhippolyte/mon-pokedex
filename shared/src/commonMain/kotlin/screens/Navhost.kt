@@ -1,14 +1,11 @@
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.rememberNavigator
 import moe.tlaster.precompose.navigation.transition.NavTransition
-import screens.MyPokemonScreen
 import screens.PokemonListScreen
 import screens.PokemonScreen
 
-private val repository = PokemonRepository()
 
 @Composable
 internal fun rootNavHost() {
@@ -23,20 +20,13 @@ internal fun rootNavHost() {
             route = "/welcome",
             navTransition = NavTransition(),
         ) {
-            val pokemons = repository.pokemonListState.collectAsState()
-
-            if (pokemons.value.isNotEmpty()) {
-                PokemonListScreen(navigator, pokemons.value)
-            }
+            PokemonListScreen(navigator, false)
         }
         scene(
             route = "/myPokemon",
             navTransition = NavTransition(),
         ) {
-
-            val pokemon = repository.pokemonState.collectAsState()
-
-            MyPokemonScreen(navigator, pokemon.value)
+            PokemonListScreen(navigator, true)
         }
         scene(
             route = "/pokemon/{id}",

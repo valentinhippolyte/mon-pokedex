@@ -1,6 +1,7 @@
 package dataClass
 
+@kotlinx.serialization.Serializable
 data class Type(
-    val label: String,
+    val name: String,
     val image: String
 )
