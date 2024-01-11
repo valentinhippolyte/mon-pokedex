@@ -1,3 +1,4 @@
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import moe.tlaster.precompose.navigation.rememberNavigator
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
@@ -39,8 +41,14 @@ fun App() {
             "Capture" to Icons.Default.Favorite,
         )
         val selectedScreen = when (selectedTabIndex) {
-            0 -> { navigator.navigate(route = "/welcome") }
-            1 -> { navigator.navigate(route = "/myPokemon") }
+            0 -> {
+                navigator.navigate(route = "/welcome")
+            }
+
+            1 -> {
+                navigator.navigate(route = "/myPokemon")
+            }
+
             else -> throw IllegalArgumentException("Unknown tab index: $selectedTabIndex")
         }
 
@@ -61,6 +69,7 @@ fun App() {
                         icon = { Icon(icon, contentDescription = null) },
                         label = { Text(text = title) },
                         selected = selectedTabIndex == index,
+                        modifier = Modifier.background(color = Color.Red),
                         onClick = {
                             selectedTabIndex = index
                         }
@@ -70,4 +79,5 @@ fun App() {
         }
     }
 }
+
 expect fun getPlatformName(): String
