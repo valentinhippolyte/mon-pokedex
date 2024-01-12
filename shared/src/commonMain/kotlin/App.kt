@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import moe.tlaster.precompose.navigation.rememberNavigator
 import network.repository.PokemonRepository
 import network.repository.PokemonTypeRepository
@@ -53,11 +54,12 @@ fun App() {
             }
 
             BottomNavigation(
+                backgroundColor = Color.Red
             ) {
                 tabs.forEachIndexed { index, (title, icon) ->
                     BottomNavigationItem(
-                        icon = { Icon(icon, contentDescription = null) },
-                        label = { Text(text = title) },
+                        icon = { Icon(icon, contentDescription = null, tint = Color.White) },
+                        label = { Text(text = title, color = Color.White) },
                         selected = selectedTabIndex == index,
                         onClick = {
                             selectedTabIndex = index
