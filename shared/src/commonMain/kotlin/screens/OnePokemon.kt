@@ -29,7 +29,7 @@ import moe.tlaster.precompose.navigation.Navigator
 import network.repository.PokemonRepository
 
 @Composable
-fun PokemonScreen(navigator: Navigator, id: Int) {
+fun OnePokemonScreen(navigator: Navigator, id: Int) {
 
     val pokemon: Pokemon =
         PokemonRepository.pokemonListState.collectAsState().value.single { pokemon -> pokemon.id == id }

@@ -4,7 +4,7 @@ import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.rememberNavigator
 import moe.tlaster.precompose.navigation.transition.NavTransition
 import screens.PokemonListScreen
-import screens.PokemonScreen
+import screens.OnePokemonScreen
 
 
 @Composable
@@ -33,7 +33,7 @@ internal fun rootNavHost() {
             navTransition = NavTransition(),
         ) { backStackEntry ->
             backStackEntry.path<Int>("id")?.let { id ->
-                PokemonScreen(navigator, id)
+                OnePokemonScreen(navigator, id)
             }
         }
     }
